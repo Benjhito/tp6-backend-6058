@@ -1,0 +1,160 @@
+<div class="d-flex justify-content-center mt-4">
+  <form [formGroup]="converterForm" (ngSubmit)="onSubmit()"
+    class="w-50 bg-light border border-dark rounded p-4 mb-3 mx-5">
+
+    <h5 class="text-center"><b>Conversor de Divisas</b></h5>
+
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <div class="mb-3">
+      <label for="amount" class="form-label">Cantidad</label>
+      <input type="number" id="amount" class="form-control" formControlName="amount">
+      <div *ngIf="converterForm.get('amount')?.invalid && converterForm.get('amount')?.touched" class="text-danger">
+        La cantidad es obligatoria y debe ser mayor que cero.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="fromCurrency" class="form-label">Moneda de Origen</label>
+      <select id="fromCurrency" class="form-control" formControlName="fromCurrency">
+        <option *ngFor="let currency of currencies" [value]="currency.code">{{ currency.name }}</option>
+      </select>
+      <div *ngIf="converterForm.get('fromCurrency')?.invalid && converterForm.get('fromCurrency')?.touched"
+        class="text-danger">
+        La moneda de origen es obligatoria.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="toCurrency" class="form-label">Moneda de Destino</label>
+      <select id="toCurrency" class="form-control" formControlName="toCurrency">
+        <option *ngFor="let currency of currencies" [value]="currency.code">{{ currency.name }}</option>
+      </select>
+      <div *ngIf="converterForm.get('toCurrency')?.invalid && converterForm.get('toCurrency')?.touched"
+        class="text-danger">
+        La moneda de destino es obligatoria.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="converterForm.invalid">Convertir</button>
+  </form>
+
+  <div *ngIf="result !== null" class="alert alert-success mt-3">
+    Resultado: {{ result }}
+  </div>
+</div>
+
+
+<!--div class="row mt-3 p-2">
+    <div class="d-sm-none d-md-block col-md-8">
+        <div class="table-responsive">
+            <table class="table align-middle table-condensed table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="bg-info text-white" style="text-align:center" colspan="10">Conversor de divisas</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" rowspan="2"></th>
+
+                        @for (currency of currencies; track currency.id) {
+                            <th style="text-align:center">
+                                <img class="w-25" src="assets/images/{{ currency.image }}" alt="{{ currency.code }}">
+                            </th>
+                        }
+                    </tr>
+                    <tr>
+                        @for(currency of currencies; track currency.id) {
+                            <th style="text-align:center">{{ currency.code }}</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (currency of currencies; track currency.id) {
+                        <tr>
+                            <td align="center" rowspan="2">
+                                <img class="w-25"
+                                  src="assets/images/{{ currency.image }}"
+                                  alt="{{ currency.code }}">
+                            </td>
+                            <td align="left">1 {{ currency.code }}</td>
+
+                            <td *ngFor="let targetCurrency of currencies" align="center">
+                              {{ (targetCurrency.rate / currency.rate) | number:'1.6-6' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Inverse</td>
+                            <td *ngFor="let targetCurrency of currencies" align="center">
+                              {{ (currency.rate / targetCurrency.rate) | number:'1.6-6' }}
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <h5 class="text-center text-white bg-primary border p-2">Conversor de divisas</h5>
+
+        <form (ngSubmit)="convertCurrency()" class="bg-info border mx-2 p-2">
+            <div class="form-row">
+                <div class="col-12">
+                    <label class="form-label text-secondary text-white" for="quantity">Cantidad</label>
+                    <input class="integer form-control" id="amount" name="amount" type="number" [(ngModel)]="amount" min="0" step="1" value="1" required>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label text-secondary text-white" for="from">De</label>
+                    <select id="fromCurrency" class="form-control" [(ngModel)]="fromCurrency" name="fromCurrency" required>
+                      <option *ngFor="let currency of currencies" [value]="currency.code">
+                        {{ currency.name }} ({{ currency.code }})
+                      </option>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label text-secondary text-white" for="to">A</label>
+                    <select id="toCurrency" class="form-control" [(ngModel)]="toCurrency" name="toCurrency" required>
+                      <option *ngFor="let currency of currencies" [value]="currency.code">
+                        {{ currency.name }} ({{ currency.code }})
+                      </option>
+                    </select>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <label class="form-label text-secondary text-white" for="result">Resultado</label>
+                    <p class="string form-control" id="result" name="result">
+                        @if(result !== null) {
+                            {{ amount }} {{ fromCurrency }} = {{ result | number:'1.2-2' }} {{ toCurrency }}
+                        } @else {
+                            -- {{ error }} --
+                        }
+                    </p>
+                </div>
+
+                <div class='p-2 my-2'>
+                    <input class="btn btn-warning w-100" type="submit" value="Convertir" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div-->
+
+<style>
+    nav {
+        background-color: #68BCFF;
+    }
+
+    @media (min-width: 576px) {
+        nav {
+            background-color: #FFE24F;
+        }
+    }
+
+    @media (min-width: 768px) {
+        nav {
+            background-color: #778FA8;
+        }
+    }
+</style>

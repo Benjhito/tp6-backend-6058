@@ -1,0 +1,65 @@
+<div class="w-50 container mt-5">
+  <h2 class="text-center">Lista de Transacciones</h2>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <button class="btn btn-primary mb-3" (click)="getAllTransactions()">RECUPERAR TODAS</button>
+
+  <form [formGroup]="filterForm" (ngSubmit)="getTransactionsByCurrency()">
+    <div class="mb-3">
+      <label for="fromCurrency" class="form-label">Moneda de Origen</label>
+      <input type="text" id="fromCurrency" class="form-control" formControlName="fromCurrency">
+    </div>
+
+    <div class="mb-3">
+      <label for="toCurrency" class="form-label">Moneda de Destino</label>
+      <input type="text" id="toCurrency" class="form-control" formControlName="toCurrency">
+    </div>
+
+    <button type="submit" class="btn btn-secondary">RECUPERAR POR FILTRO</button>
+  </form>
+
+  <div *ngIf="transactions.length > 0" class="mt-3">
+    <h3>Transacciones</h3>
+    <table class="table table-condensed table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th style="text-align:center" scope="col">Moneda Origen</th>
+          <th style="text-align:center" scope="col">Moneda Destino</th>
+          <th style="text-align:center" scope="col">Cantidad</th>
+          <th style="text-align:center" scope="col">Resultado</th>
+          <th style="text-align:center" scope="col">Tasa de Conversión</th>
+          <th style="text-align:center" scope="col">Email del Cliente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td align="center">{{ transaction.monedaOrigen }}</td>
+          <td align="center">{{ transaction.monedaDestino }}</td>
+          <td align="center">{{ transaction.cantidadOrigen | number }}</td>
+          <td align="center">{{ transaction.cantidadDestino | number }}</td>
+          <td align="center">{{ transaction.tasaConversion | number }}</td>
+          <td>{{ transaction.emailCliente }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--div *ngIf="transactions.length > 0" class="mt-3">
+    <h3>Transacciones</h3>
+    <ul class="list-group">
+      <li *ngFor="let transaction of transactions" class="list-group-item">
+        <b>De:</b> {{ transaction.monedaOrigen }}
+        <b>A:</b> {{ transaction.monedaDestino }}
+        <b>Cantidad:</b> {{ transaction.cantidadOrigen }}
+        <b>Resultado:</b> {{ transaction.cantidadDestino }}
+        <b>Tasa de Conversión:</b> {{ transaction.tasaConversion }}
+        <b>Email Cliente:</b> {{ transaction.emailCliente }}
+      </li>
+    </ul>
+  <div>
+
+  <div *ngIf="transactions.length === 0" class="mt-3">
+    <p>No se encontraron transacciones.</p>
+  </div-->
+</div>

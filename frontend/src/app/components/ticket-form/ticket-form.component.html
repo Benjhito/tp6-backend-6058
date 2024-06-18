@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-center mt-4">
+  <form [formGroup]="ticketForm" (ngSubmit)="submitForm()"
+    class="w-50 bg-light border border-dark rounded p-4 mb-3 mx-5">
+
+    <h5 class="text-center">
+      <b>{{ isEditing ? 'Editar Ticket' : 'Crear Ticket' }}</b>
+    </h5>
+
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+    <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+
+    <div class="mb-3">
+      <label for="espectador" class="form-label">Espectador</label>
+      <select id="espectador" class="form-control" formControlName="espectador">
+        <option *ngFor="let espectador of espectadores" [value]="espectador._id">
+          {{ espectador.apellido }}, {{ espectador.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="categoriaEspectador" class="form-label">Categoría de Espectador</label>
+      <select id="categoriaEspectador" class="form-control" formControlName="categoriaEspectador">
+        <option value="l">Local</option>
+        <option value="e">Extranjero</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="precioTicket" class="form-label">Precio</label>
+      <input type="number" min="1" step="1" id="precioTicket" class="form-control decimal" formControlName="precioTicket">
+    </div>
+
+    <div class="mb-3">
+      <label for="fechaCompra" class="form-label">Fecha de Compra</label>
+      <input type="date" id="fechaCompra" class="form-control" formControlName="fechaCompra">
+    </div>
+
+    <div class="d-flex justify-content-around">
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </form>
+</div>
+

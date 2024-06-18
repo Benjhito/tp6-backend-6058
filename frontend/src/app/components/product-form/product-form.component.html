@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center mt-3">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()"
+    class="w-50 bg-light border border-dark rounded p-4 mb-3 mx-5">
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <h5 class="text-center"><b>Crear Producto</b></h5>
+
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" id="nombre" class="form-control" formControlName="nombre">
+      <div *ngIf="productForm.get('nombre')?.invalid && productForm.get('nombre')?.touched" class="text-danger">
+        El nombre es obligatorio.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea id="descripcion" class="form-control" formControlName="descripcion" rows="3"></textarea>
+      <div *ngIf="productForm.get('descripcion')?.invalid && productForm.get('descripcion')?.touched" class="text-danger">
+        La descripción es obligatoria.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="imagen" class="form-label">URL de la Imagen</label>
+      <input type="text" id="imagen" class="form-control" formControlName="imagen">
+      <div *ngIf="productForm.get('imagen')?.invalid && productForm.get('imagen')?.touched" class="text-danger">
+        La URL de la imagen es obligatoria.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="precio" class="form-label">Precio</label>
+      <input type="number" id="precio" class="form-control" formControlName="precio">
+      <div *ngIf="productForm.get('precio')?.invalid && productForm.get('precio')?.touched" class="text-danger">
+        El precio es obligatorio y debe ser un número positivo.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="stock" class="form-label">Stock</label>
+      <input type="number" id="stock" class="form-control" formControlName="stock">
+      <div *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched" class="text-danger">
+        El stock es obligatorio y debe ser un número positivo.
+      </div>
+    </div>
+
+    <div class="form-check mb-3">
+      <input type="checkbox" id="destacado" class="form-check-input" formControlName="destacado">
+      <label class="form-check-label" for="destacado">Destacado</label>
+    </div>
+
+    <div class='d-flex justify-content-center'>
+      <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Crear Producto</button>
+    </div>
+  </form>
+</div>
+

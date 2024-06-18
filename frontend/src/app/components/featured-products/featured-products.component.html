@@ -1,0 +1,21 @@
+<div class="container mt-5">
+  <h2>Productos Destacados</h2>
+  <owl-carousel-o>
+    <ng-container *ngFor="let product of featuredProducts">
+      <ng-template carouselSlide>
+        <div class="card" style="width: 18rem;">
+          <img [src]="product.imagen" class="card-img-top" alt="{{ product.nombre }}" width="362" height="180">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.nombre }}</h5>
+            <p class="card-text">{{ product.descripcion }}</p>
+            <p class="card-text">Precio: ${{ product.precio }}</p>
+            <p class="card-text">Stock: {{ product.stock }}</p>
+          </div>
+          <div class="card-footer">
+            Última actualización: hace unos minutos
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</div>
